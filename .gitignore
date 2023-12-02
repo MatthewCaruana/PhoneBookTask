@@ -7,3 +7,7 @@
 /PhoneBook/PhoneBook/obj
 /PhoneBook.Test/PhoneBook.Test/bin/Debug/net6.0
 /PhoneBook.Test/PhoneBook.Test/obj
+/PhoneBook/PhoneBook/bin/Debug/net6.0
+/PhoneBook/PhoneBook.Application/obj
+/PhoneBook/PhoneBook.Domain/obj
+/PhoneBook/PhoneBook.Persistence/obj
