@@ -19,6 +19,8 @@ builder.Services.AddTransient<ICompanyRepository, CompanyRepository>();
 builder.Services.AddTransient<IPersonRepository, PersonRepository>();
 
 builder.Services.AddScoped<ICompanyServices, CompanyServices>();
+builder.Services.AddScoped<IPersonServices, PersonServices>();
+
 
 var app = builder.Build();
 
