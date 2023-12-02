@@ -11,3 +11,6 @@
 /PhoneBook/PhoneBook.Application/obj
 /PhoneBook/PhoneBook.Domain/obj
 /PhoneBook/PhoneBook.Persistence/obj
+/PhoneBook/PhoneBook.Application/bin/Debug/net6.0
+/PhoneBook/PhoneBook.Persistence/bin/Debug/net6.0
+/PhoneBook/PhoneBook.Shared/obj
