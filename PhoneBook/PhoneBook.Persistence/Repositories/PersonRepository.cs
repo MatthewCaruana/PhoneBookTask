@@ -1,4 +1,5 @@
 ﻿using PhoneBook.Persistence.Context;
+using PhoneBook.Persistence.Models;
 using PhoneBook.Persistence.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,9 @@ namespace PhoneBook.Persistence.Repositories
             _context = context;
         }
 
-
+        public List<PersonDataModel> GetAllPersons()
+        {
+            return this._context.Person.ToList();
+        }
     }
 }

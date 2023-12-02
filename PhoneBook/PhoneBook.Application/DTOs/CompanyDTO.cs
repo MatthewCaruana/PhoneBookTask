@@ -10,5 +10,6 @@ namespace PhoneBook.Application.DTOs
     {
         public string CompanyName { get; set; }
         public DateTime RegistrationDate { get; set; }  
+        public int LinkedPersons { get; set; }
     }
 }

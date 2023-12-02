@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PhoneBook.Persistence.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,6 @@ namespace PhoneBook.Persistence.Repositories.Interfaces
 {
     public interface IPersonRepository
     {
+        List<PersonDataModel> GetAllPersons();
     }
 }
