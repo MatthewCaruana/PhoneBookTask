@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PhoneBook.Persistence\PhoneBook.Persistence.csproj" />
+  </ItemGroup>
+
 </Project>
