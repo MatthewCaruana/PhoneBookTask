@@ -5,3 +5,5 @@
 /.vs
 /PhoneBook/PhoneBook/.vs/PhoneBook
 /PhoneBook/PhoneBook/obj
+/PhoneBook.Test/PhoneBook.Test/bin/Debug/net6.0
+/PhoneBook.Test/PhoneBook.Test/obj
