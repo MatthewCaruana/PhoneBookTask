@@ -8,8 +8,8 @@ namespace PhoneBook.Persistence.Models
 {
     public class PersonDataModel
     {
-        public string Id { get; set; }
-        public string CompanyRef { get; set; }
+        public Guid Id { get; set; }
+        public Guid CompanyRef { get; set; }
         public string FullName { get; set; }
         public string PhoneNumber { get; set; }
         public string FullAddress { get; set; }
