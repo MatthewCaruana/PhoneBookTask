@@ -8,7 +8,7 @@ namespace PhoneBook.Persistence.Models
 {
     public class CompanyDataModel
     {
-        public Guid ID { get; set; }
+        public int ID { get; set; }
         public string CompanyName { get; set; }
         public DateTime RegistrationDate { get; set; }
 

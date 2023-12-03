@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using PhoneBook.Persistence.Context.Interface;
 using PhoneBook.Persistence.Mappings;
 using PhoneBook.Persistence.Models;
 using System;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace PhoneBook.Persistence.Context
 {
-    public class PhoneBookContext : DbContext
+    public class PhoneBookContext : DbContext, IPhoneBookDbContext 
     {
         protected readonly IConfiguration Configuration;
 
