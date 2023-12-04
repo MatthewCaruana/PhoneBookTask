@@ -64,6 +64,13 @@ namespace PhoneBook.Application.Services
                 _repository.RemovePerson(person);
             }
         }
+
+        public PersonDTO GetWildcard()
+        {
+            PersonDataModel person = _repository.GetWildcard();
+
+            return ConvertToDTO(person);
+        }
         #endregion
 
 

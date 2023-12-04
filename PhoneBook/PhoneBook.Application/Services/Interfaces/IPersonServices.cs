@@ -16,5 +16,7 @@ namespace PhoneBook.Application.Services.Interfaces
         void EditPerson(EditPersonDTO editedPerson);
 
         void DeletePerson(int personID);
+
+        PersonDTO GetWildcard();
     }
 }

@@ -108,13 +108,26 @@ namespace PhoneBook.Test.UnitTests
         [TestMethod]
         public void Person_Search()
         {
+            //arrange
 
+
+            //act
+
+
+            //assert
         }
 
         [TestMethod]
         public void Person_WildCard()
         {
+            //arrange
+            SetupDatasets();
 
+            //act
+            var result = _services.GetWildcard();
+
+            //assert
+            Assert.IsNotNull(result);
         }
         #endregion
 

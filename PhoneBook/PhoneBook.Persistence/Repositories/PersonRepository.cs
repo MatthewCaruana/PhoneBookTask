@@ -48,5 +48,10 @@ namespace PhoneBook.Persistence.Repositories
         {
             _context.Person.Remove(person);
         }
+
+        public PersonDataModel GetWildcard()
+        {
+            return _context.Person.OrderBy(_ => Guid.NewGuid()).Take(1).Single();
+        }
     }
 }
