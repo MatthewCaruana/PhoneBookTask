@@ -10,5 +10,7 @@ namespace PhoneBook.Application.Services.Interfaces
     public interface IPersonServices
     {
         List<PersonDTO> GetAllPersons();
+
+        void AddPerson(PersonDTO person);
     }
 }

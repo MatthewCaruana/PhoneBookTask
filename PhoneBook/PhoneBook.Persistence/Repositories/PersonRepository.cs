@@ -20,7 +20,17 @@ namespace PhoneBook.Persistence.Repositories
 
         public List<PersonDataModel> GetAllPersons()
         {
-            return this._context.Person.ToList();
+            return _context.Person.ToList();
+        }
+
+        public void AddPerson(PersonDataModel person)
+        {
+            _context.Person.Add(person);
+        }
+
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
         }
     }
 }

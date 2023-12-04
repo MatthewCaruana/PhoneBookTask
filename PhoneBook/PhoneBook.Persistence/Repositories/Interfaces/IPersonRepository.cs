@@ -10,5 +10,7 @@ namespace PhoneBook.Persistence.Repositories.Interfaces
     public interface IPersonRepository
     {
         List<PersonDataModel> GetAllPersons();
+        void AddPerson(PersonDataModel person);
+        void SaveChanges();
     }
 }

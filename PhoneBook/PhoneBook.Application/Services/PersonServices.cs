@@ -33,6 +33,12 @@ namespace PhoneBook.Application.Services
             return personDTOs;
         }
 
+        public void AddPerson(PersonDTO person)
+        { 
+            _repository.AddPerson(ConvertToDataModel(person));
+            _repository.SaveChanges();
+        }
+
         private PersonDTO ConvertToDTO(PersonDataModel model)
         {
             PersonDTO result = new PersonDTO();
@@ -40,6 +46,17 @@ namespace PhoneBook.Application.Services
             result.FullName = model.FullName;
             result.PhoneNumber = model.PhoneNumber;
             result.FullAddress = model.FullAddress;
+
+            return result;
+        }
+
+        private PersonDataModel ConvertToDataModel(PersonDTO dto)
+        {
+            PersonDataModel result = new PersonDataModel();
+
+            result.FullName = dto.FullName;
+            result.PhoneNumber = dto.PhoneNumber;
+            result.FullAddress = dto.FullAddress;
 
             return result;
         }

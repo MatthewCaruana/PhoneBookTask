@@ -1,4 +1,5 @@
 using Moq;
+using PhoneBook.Application.DTOs;
 using PhoneBook.Application.Services;
 using PhoneBook.Persistence.Repositories;
 using PhoneBook.Persistence.Repositories.Interfaces;
@@ -7,11 +8,11 @@ using PhoneBook.Test.Mocks.Manager;
 namespace PhoneBook.Test.UnitTests
 {
     [TestClass]
-    public class PersonRepositoryTest
+    public class PersonServicesTest
     {
         private Mock<IPersonRepository> _personRepository;
 
-        public PersonRepositoryTest()
+        public PersonServicesTest()
         {
             _personRepository = new Mock<IPersonRepository>();
         }
@@ -40,9 +41,19 @@ namespace PhoneBook.Test.UnitTests
         }
 
         [TestMethod]
-        public void Person_Add()
+        [DynamicData(nameof(GetTestInputPersonData), DynamicDataSourceType.Method)]
+        public void Person_Add(PersonDTO person)
         {
+            //arrange
+            PersonServices personServices = new PersonServices(_personRepository.Object);
 
+            //act
+            personServices.AddPerson(person);
+            List<PersonDTO> PersonList = personServices.GetAllPersons();
+
+            //assert
+            Assert.AreEqual(PersonList.Count(), 1);
+            Assert.AreEqual(PersonList[0], person);
         }
 
         [TestMethod]
@@ -58,9 +69,17 @@ namespace PhoneBook.Test.UnitTests
         }
         #endregion
 
-        private void SetupMockPhoneBookContext()
+        private static IEnumerable<object[]> GetTestInputPersonData()
         {
-
+            yield return new object[]
+            {
+                new PersonDTO()
+                {
+                    FullName = "Andrew Stevens",
+                    PhoneNumber = "+35679797979",
+                    FullAddress = "99, Grand Street, Valletta, Malta",
+                }
+            };
         }
     }
 }
