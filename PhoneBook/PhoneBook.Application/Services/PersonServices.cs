@@ -71,6 +71,20 @@ namespace PhoneBook.Application.Services
 
             return ConvertToDTO(person);
         }
+
+        public List<PersonDTO> Search(string keyword)
+        {
+            List<PersonDTO> personDTOs = new List<PersonDTO>();
+
+            List<PersonDataModel> persons = _repository.Search(keyword);
+
+            foreach (PersonDataModel person in persons)
+            {
+                personDTOs.Add(ConvertToDTO(person));
+            }
+
+            return personDTOs;
+        }
         #endregion
 
 
@@ -97,9 +111,11 @@ namespace PhoneBook.Application.Services
             return result;
         }
 
+       
+
 
         #endregion
 
-        
+
     }
 }

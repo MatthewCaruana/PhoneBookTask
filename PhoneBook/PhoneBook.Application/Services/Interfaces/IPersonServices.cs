@@ -18,5 +18,6 @@ namespace PhoneBook.Application.Services.Interfaces
         void DeletePerson(int personID);
 
         PersonDTO GetWildcard();
+        List<PersonDTO> Search(string keyword);
     }
 }

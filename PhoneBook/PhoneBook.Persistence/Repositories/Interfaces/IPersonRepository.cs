@@ -16,5 +16,6 @@ namespace PhoneBook.Persistence.Repositories.Interfaces
         void UpdatePerson(PersonDataModel person);
         void RemovePerson(PersonDataModel person);
         PersonDataModel GetWildcard();
+        List<PersonDataModel> Search(string keyword);
     }
 }

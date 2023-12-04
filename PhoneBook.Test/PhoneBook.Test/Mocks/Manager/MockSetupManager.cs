@@ -32,7 +32,7 @@ namespace PhoneBook.Test.Mocks.Manager
                 CompanyRef = 1,
                 FullAddress = "50, Main Street, Fgura, Malta",
                 FullName = "Albert Vella",
-                PhoneNumber = "+35699445566"
+                PhoneNumber = "+35699445511"
             });
 
             list.Add(new PersonDataModel()

@@ -106,15 +106,17 @@ namespace PhoneBook.Test.UnitTests
         }
 
         [TestMethod]
-        public void Person_Search()
+        [DynamicData(nameof(GetTestSearchData), DynamicDataSourceType.Method)]
+        public void Person_Search(string keyword, List<int> expectedIds)
         {
             //arrange
-
+            SetupDatasets();
 
             //act
-
+            var result = _services.Search(keyword);
 
             //assert
+            Assert.AreEqual(expectedIds.Count(), result.Count());
         }
 
         [TestMethod]
@@ -131,6 +133,7 @@ namespace PhoneBook.Test.UnitTests
         }
         #endregion
 
+        #region InputData
         private static IEnumerable<object[]> GetTestInputPersonData()
         {
             yield return new object[]
@@ -165,6 +168,29 @@ namespace PhoneBook.Test.UnitTests
                 2
             };
         }
+
+        private static IEnumerable<object[]> GetTestSearchData()
+        {
+            yield return new object[]
+            {
+                "Malta",
+                new List<int>() { 1, 2, 3 }
+            };
+
+            yield return new object[]
+            {
+                "Albert",
+                new List<int>() { 2 }
+            };
+
+            yield return new object[]
+            {
+                "11",
+                new List<int>() { 1, 2 }
+            };
+        }
+
+        #endregion
 
         private void SetupDatasets()
         {

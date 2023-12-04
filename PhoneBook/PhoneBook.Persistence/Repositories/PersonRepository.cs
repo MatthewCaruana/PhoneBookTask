@@ -53,5 +53,10 @@ namespace PhoneBook.Persistence.Repositories
         {
             return _context.Person.OrderBy(_ => Guid.NewGuid()).Take(1).Single();
         }
+
+        public List<PersonDataModel> Search(string keyword)
+        {
+            return _context.Person.Where(x=>x.FullName.Contains(keyword) || x.FullAddress.Contains(keyword) || x.PhoneNumber.Contains(keyword)).Distinct().ToList();
+        }
     }
 }
