@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PhoneBook.Test.Mocks
 {
-    public class MockPhoneBookContext : IPhoneBookDbContext
+    public class MockPhoneBookContext 
     {
         private IEnumerable<PersonDataModel> CreateEmptyPersonDataModel()
         {

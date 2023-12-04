@@ -10,5 +10,9 @@ namespace PhoneBook.Persistence.Context.Interface
 {
     public interface IPhoneBookDbContext
     {
+        DbSet<CompanyDataModel> Company { get; set; }
+        DbSet<PersonDataModel> Person { get; set; }
+
+        void SaveChanges();
     }
 }

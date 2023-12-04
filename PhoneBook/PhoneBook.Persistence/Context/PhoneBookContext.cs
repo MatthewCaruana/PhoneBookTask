@@ -15,6 +15,8 @@ namespace PhoneBook.Persistence.Context
     {
         protected readonly IConfiguration Configuration;
 
+        public PhoneBookContext() { }
+
         public PhoneBookContext(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -35,5 +37,11 @@ namespace PhoneBook.Persistence.Context
 
         public DbSet<CompanyDataModel> Company { get; set; }
         public DbSet<PersonDataModel> Person { get; set; }
+
+        public new void SaveChanges()
+        {
+            var a = this.ChangeTracker.Entries().ToArray();
+            base.SaveChanges();
+        }
     }
 }

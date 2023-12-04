@@ -1,20 +1,28 @@
+using Microsoft.EntityFrameworkCore;
 using Moq;
+using NSubstitute;
 using PhoneBook.Application.DTOs;
 using PhoneBook.Application.Services;
+using PhoneBook.Persistence.Context;
+using PhoneBook.Persistence.Context.Interface;
+using PhoneBook.Persistence.Models;
 using PhoneBook.Persistence.Repositories;
 using PhoneBook.Persistence.Repositories.Interfaces;
+using PhoneBook.Test.Mocks;
 using PhoneBook.Test.Mocks.Manager;
+using PhoneBook.Test.Utils;
+using System.Net.Sockets;
 
 namespace PhoneBook.Test.UnitTests
 {
     [TestClass]
     public class PersonServicesTest
     {
-        private Mock<IPersonRepository> _personRepository;
+        private IPersonRepository _personRepository;
+        private IPhoneBookDbContext _context;
 
         public PersonServicesTest()
         {
-            _personRepository = new Mock<IPersonRepository>();
         }
 
         #region Tests
@@ -23,8 +31,8 @@ namespace PhoneBook.Test.UnitTests
         public void Person_GetAll()
         {
             //arrange
-            _personRepository.Setup(x => x.GetAllPersons()).Returns(MockSetupManager.GetListOfPersons());
-            PersonServices personService = new PersonServices(_personRepository.Object);
+            SetupDatasets();
+            PersonServices personService = new PersonServices(_personRepository);
 
             //act
             var result = personService.GetAllPersons();
@@ -45,15 +53,22 @@ namespace PhoneBook.Test.UnitTests
         public void Person_Add(PersonDTO person)
         {
             //arrange
-            PersonServices personServices = new PersonServices(_personRepository.Object);
+            SetupDatasets();
+            PersonServices personServices = new PersonServices(_personRepository);
+            PersonDataModel expectedModel = new PersonDataModel()
+            {
+                FullName = person.FullName,
+                PhoneNumber = person.PhoneNumber,
+                FullAddress = person.FullAddress
+            };
 
             //act
             personServices.AddPerson(person);
-            List<PersonDTO> PersonList = personServices.GetAllPersons();
 
             //assert
-            Assert.AreEqual(PersonList.Count(), 1);
-            Assert.AreEqual(PersonList[0], person);
+            //_personRepository.Received(1).AddPerson(expectedModel);
+            _context.Received(1).Person.Add(expectedModel);
+            _context.Received(1).SaveChanges();
         }
 
         [TestMethod]
@@ -80,6 +95,24 @@ namespace PhoneBook.Test.UnitTests
                     FullAddress = "99, Grand Street, Valletta, Malta",
                 }
             };
+        }
+
+        private void SetupDatasets()
+        {
+            IList<PersonDataModel> personList = MockSetupManager.GetListOfPersons();
+            IQueryable<PersonDataModel> persons = personList.AsQueryable();
+
+            DbSet<PersonDataModel> mockedPersons = NSubstituteUtil.CreateMockSet(persons);
+            mockedPersons.Add(Arg.Do<PersonDataModel>(x =>
+            {
+                personList.Add(x);
+                persons = personList.AsQueryable();
+            }));
+
+            _context = Substitute.For<IPhoneBookDbContext>();
+            _context.Person.Returns(mockedPersons);
+
+            _personRepository = new PersonRepository(_context);
         }
     }
 }
