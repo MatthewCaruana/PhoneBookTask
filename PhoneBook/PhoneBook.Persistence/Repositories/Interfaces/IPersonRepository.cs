@@ -12,5 +12,8 @@ namespace PhoneBook.Persistence.Repositories.Interfaces
         List<PersonDataModel> GetAllPersons();
         void AddPerson(PersonDataModel person);
         void SaveChanges();
+        PersonDataModel FindById(int id);
+        void UpdatePerson(PersonDataModel person);
+        void RemovePerson(PersonDataModel person);
     }
 }

@@ -24,5 +24,13 @@ namespace PhoneBook.Controllers
             List<PersonDTO> result = _personServices.GetAllPersons();
             return result;
         }
+
+        [HttpPost(Name ="AddPerson")]
+        public void AddPerson(PersonDTO person)
+        {
+            _personServices.AddPerson(person);
+        }
+
+
     }
 }

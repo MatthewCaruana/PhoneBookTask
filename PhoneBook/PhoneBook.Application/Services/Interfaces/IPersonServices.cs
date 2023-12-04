@@ -12,5 +12,9 @@ namespace PhoneBook.Application.Services.Interfaces
         List<PersonDTO> GetAllPersons();
 
         void AddPerson(PersonDTO person);
+
+        void EditPerson(EditPersonDTO editedPerson);
+
+        void DeletePerson(int personID);
     }
 }

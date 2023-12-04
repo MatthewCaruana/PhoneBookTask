@@ -19,6 +19,7 @@ namespace PhoneBook.Application.Services
             _repository = repository;
         }
 
+        #region Interface Implementations
         public List<PersonDTO> GetAllPersons()
         {
             List<PersonDTO> personDTOs = new List<PersonDTO>();
@@ -39,6 +40,34 @@ namespace PhoneBook.Application.Services
             _repository.SaveChanges();
         }
 
+        public void EditPerson(EditPersonDTO editedPerson)
+        {
+            PersonDataModel person = _repository.FindById(editedPerson.Id);
+
+            if(person != null)
+            {
+                person.FullName = editedPerson.FullName;
+                person.PhoneNumber = editedPerson.PhoneNumber;
+                person.FullAddress = editedPerson.FullAddress;
+                person.CompanyRef = editedPerson.CompanyRef;
+
+                _repository.UpdatePerson(person);
+                _repository.SaveChanges();
+            }
+        }
+
+        public void DeletePerson(int personID)
+        {
+            PersonDataModel person = _repository.FindById(personID);
+            if(person != null)
+            {
+                _repository.RemovePerson(person);
+            }
+        }
+        #endregion
+
+
+        #region Private Functions
         private PersonDTO ConvertToDTO(PersonDataModel model)
         {
             PersonDTO result = new PersonDTO();
@@ -60,5 +89,10 @@ namespace PhoneBook.Application.Services
 
             return result;
         }
+
+
+        #endregion
+
+        
     }
 }

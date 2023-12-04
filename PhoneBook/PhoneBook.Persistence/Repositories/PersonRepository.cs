@@ -33,5 +33,20 @@ namespace PhoneBook.Persistence.Repositories
         {
             _context.SaveChanges();
         }
+
+        public PersonDataModel FindById(int id)
+        {
+            return _context.Person.Where(x => x.Id == id).FirstOrDefault();
+        }
+
+        public void UpdatePerson(PersonDataModel person)
+        {
+            _context.Person.Update(person);
+        }
+
+        public void RemovePerson(PersonDataModel person)
+        {
+            _context.Person.Remove(person);
+        }
     }
 }
