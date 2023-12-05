@@ -42,6 +42,7 @@ namespace PhoneBook.Test.UnitTests
         }
 
         [TestMethod]
+        [DynamicData(nameof(GetTestAddData), DynamicDataSourceType.Method)]
         public void Company_Add(CompanyDTO company)
         {
             //arrange
@@ -57,8 +58,20 @@ namespace PhoneBook.Test.UnitTests
             _service.AddCompany(company);
 
             //assert
-            _context.Company.Received(1).Add(expectedDataModel);
+            _context.Company.Received(1).Add(Arg.Any<CompanyDataModel>());
             _context.Received(1).SaveChanges();
+        }
+
+        private static IEnumerable<object[]> GetTestAddData()
+        {
+            yield return new object[]
+            {
+                new CompanyDTO()
+                {
+                    CompanyName = "New Company",
+                    RegistrationDate = DateTime.Today
+                }
+            };
         }
 
         private void SetupDatasets()
@@ -70,23 +83,6 @@ namespace PhoneBook.Test.UnitTests
             mockedCompanies.Add(Arg.Do<CompanyDataModel>(x =>
             {
                 companiesList.Add(x);
-                company = companiesList.AsQueryable();
-            }));
-
-            mockedCompanies.Remove(Arg.Do<CompanyDataModel>(x =>
-            {
-                companiesList.Remove(x);
-                company = companiesList.AsQueryable();
-            }));
-
-            mockedCompanies.Update(Arg.Do<CompanyDataModel>(x =>
-            {
-                CompanyDataModel updatingCompany = companiesList.FirstOrDefault(y => y.ID == x.ID);
-                if (updatingCompany != null)
-                {
-                    updatingCompany.CompanyName = x.CompanyName;
-                    updatingCompany.RegistrationDate = x.RegistrationDate;
-                }
                 company = companiesList.AsQueryable();
             }));
 

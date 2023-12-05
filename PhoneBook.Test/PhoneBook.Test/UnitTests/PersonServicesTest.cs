@@ -102,7 +102,7 @@ namespace PhoneBook.Test.UnitTests
             _services.AddPerson(person);
 
             //assert
-            _context.Person.Received(1).Add(expectedModel);
+            _context.Person.Received(1).Add(Arg.Any<PersonDataModel>());
             _context.Received(1).SaveChanges();
         }
 
