@@ -1,6 +1,7 @@
 using PhoneBook.Application.Services;
 using PhoneBook.Application.Services.Interfaces;
 using PhoneBook.Persistence.Context;
+using PhoneBook.Persistence.Context.Interface;
 using PhoneBook.Persistence.Repositories;
 using PhoneBook.Persistence.Repositories.Interfaces;
 
@@ -14,6 +15,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<PhoneBookContext>();
+
+builder.Services.AddScoped<IPhoneBookDbContext, PhoneBookContext>();
 
 builder.Services.AddTransient<ICompanyRepository, CompanyRepository>();
 builder.Services.AddTransient<IPersonRepository, PersonRepository>();

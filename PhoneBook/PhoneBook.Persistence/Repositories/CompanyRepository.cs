@@ -1,4 +1,5 @@
 ﻿using PhoneBook.Persistence.Context;
+using PhoneBook.Persistence.Context.Interface;
 using PhoneBook.Persistence.Models;
 using PhoneBook.Persistence.Repositories.Interfaces;
 using System;
@@ -12,9 +13,9 @@ namespace PhoneBook.Persistence.Repositories
 {
     public class CompanyRepository : ICompanyRepository
     {
-        private PhoneBookContext _context;
+        private IPhoneBookDbContext _context;
 
-        public CompanyRepository(PhoneBookContext context)
+        public CompanyRepository(IPhoneBookDbContext context)
         {
             _context = context;
         }

@@ -49,5 +49,11 @@ namespace PhoneBook.Controllers
         {
             _personServices.DeletePerson(id);
         }
+
+        [HttpGet(Name ="GetWildcard")]
+        public PersonDTO GetWildcard()
+        {
+            return _personServices.GetWildcard();
+        }
     }
 }

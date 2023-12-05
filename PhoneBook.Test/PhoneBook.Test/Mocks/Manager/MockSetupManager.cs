@@ -46,5 +46,32 @@ namespace PhoneBook.Test.Mocks.Manager
 
             return list;
         }
+
+        public static List<CompanyDataModel> GetListOfCompanies()
+        {
+            var list = new List<CompanyDataModel>();
+            list.Add(new CompanyDataModel()
+            {
+                ID = 1,
+                CompanyName = "Company A",
+                RegistrationDate = new DateTime(2020, 1, 1)
+            });
+
+            list.Add(new CompanyDataModel()
+            {
+                ID = 2,
+                CompanyName = "Company B",
+                RegistrationDate = new DateTime(2022, 5, 20)
+            });
+
+            list.Add(new CompanyDataModel()
+            {
+                ID = 3,
+                CompanyName = "CCC Company",
+                RegistrationDate = new DateTime(2023, 2, 4)
+            });
+
+            return list;
+        }
     }
 }

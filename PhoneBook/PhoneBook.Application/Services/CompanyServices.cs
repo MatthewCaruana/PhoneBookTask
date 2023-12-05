@@ -41,7 +41,14 @@ namespace PhoneBook.Application.Services
 
             result.CompanyName = model.CompanyName;
             result.RegistrationDate = model.RegistrationDate;
-            result.LinkedPersons = model.Persons.Count();
+            if(model.Persons != null)
+            {
+                result.LinkedPersons = model.Persons.Count();
+            }
+            else
+            {
+                result.LinkedPersons = 0;
+            }
 
             return result;
         }
