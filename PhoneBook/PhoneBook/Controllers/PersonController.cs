@@ -18,39 +18,44 @@ namespace PhoneBook.Controllers
             _personServices = personServices;
         }
 
-        [HttpGet(Name = "GetAllPersons")]
+        [HttpGet]
+        [Route("GetAllPersons")]
         public List<PersonDTO> GetAllPersons()
         {
             List<PersonDTO> result = _personServices.GetAllPersons();
             return result;
         }
 
-        [HttpPost(Name ="AddPerson")]
+        [HttpPost]
+        [Route("AddPerson")]
         public void AddPerson(PersonDTO person)
         {
             _personServices.AddPerson(person);
         }
 
-        [HttpGet(Name ="SearchByKeyword")]
+        [HttpGet]
+        [Route("SearchByKeyword")]
         public List<PersonDTO> SearchByKeyword(string keyword)
         {
             List<PersonDTO> result = _personServices.Search(keyword);
             return result;
         }
 
-        [HttpPut(Name = "EditPerson")]
+        [HttpPut]
+        [Route("EditPerson")]
         public void EditPerson(EditPersonDTO editPersonDTO)
         {
             _personServices.EditPerson(editPersonDTO);
         }
 
-        [HttpDelete(Name = "DeletePerson")]
+        [HttpDelete]
+        [Route("DeletePerson")]
         public void DeletePerson(int id)
         {
             _personServices.DeletePerson(id);
         }
 
-        [HttpGet(Name ="GetWildcard")]
+        [HttpGet]
         public PersonDTO GetWildcard()
         {
             return _personServices.GetWildcard();

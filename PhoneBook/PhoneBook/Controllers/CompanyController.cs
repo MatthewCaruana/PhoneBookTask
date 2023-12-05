@@ -18,11 +18,19 @@ namespace PhoneBook.Controllers
             _companyServices = companyServices;
         }
 
-        [HttpGet(Name = "GetAllCompanies")]
-        public List<CompanyDTO> GetAllCompanies()
+        [HttpGet]
+        [Route("GetCompanies")]
+        public List<CompanyDTO> GetCompanies()
         {
             List<CompanyDTO> result = _companyServices.GetAllCompanies();
             return result;
+        }
+
+        [HttpPost]
+        [Route("AddCompany")]
+        public void AddCompany(CompanyDTO company)
+        {
+            _companyServices.AddCompany(company);
         }
     }
 }
