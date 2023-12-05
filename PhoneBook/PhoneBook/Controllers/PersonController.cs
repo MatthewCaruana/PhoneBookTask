@@ -31,6 +31,23 @@ namespace PhoneBook.Controllers
             _personServices.AddPerson(person);
         }
 
+        [HttpGet(Name ="SearchByKeyword")]
+        public List<PersonDTO> SearchByKeyword(string keyword)
+        {
+            List<PersonDTO> result = _personServices.Search(keyword);
+            return result;
+        }
 
+        [HttpPut(Name = "EditPerson")]
+        public void EditPerson(EditPersonDTO editPersonDTO)
+        {
+            _personServices.EditPerson(editPersonDTO);
+        }
+
+        [HttpDelete(Name = "DeletePerson")]
+        public void DeletePerson(int id)
+        {
+            _personServices.DeletePerson(id);
+        }
     }
 }
