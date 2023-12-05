@@ -20,24 +20,24 @@ namespace PhoneBook.Controllers
 
         [HttpGet]
         [Route("GetAllPersons")]
-        public List<PersonDTO> GetAllPersons()
+        public List<PersonCompanyDTO> GetAllPersons()
         {
-            List<PersonDTO> result = _personServices.GetAllPersons();
+            List<PersonCompanyDTO> result = _personServices.GetAllPersons();
             return result;
         }
 
         [HttpPost]
         [Route("AddPerson")]
-        public void AddPerson(PersonDTO person)
+        public void AddPerson(NewPersonDTO person)
         {
             _personServices.AddPerson(person);
         }
 
         [HttpGet]
         [Route("SearchByKeyword")]
-        public List<PersonDTO> SearchByKeyword(string keyword)
+        public List<PersonCompanyDTO> SearchByKeyword(string keyword)
         {
-            List<PersonDTO> result = _personServices.Search(keyword);
+            List<PersonCompanyDTO> result = _personServices.Search(keyword);
             return result;
         }
 
@@ -56,7 +56,8 @@ namespace PhoneBook.Controllers
         }
 
         [HttpGet]
-        public PersonDTO GetWildcard()
+        [Route("GetWildcard")]
+        public PersonCompanyDTO GetWildcard()
         {
             return _personServices.GetWildcard();
         }

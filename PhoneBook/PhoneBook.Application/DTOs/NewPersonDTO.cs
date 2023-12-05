@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace PhoneBook.Application.DTOs
 {
-    public class PersonDTO
+    public class NewPersonDTO
     {
         public string FullName { get; set; }
         public string PhoneNumber { get; set; }
         public string FullAddress { get; set; }
+        public int CompanyRef { get; set; }
     }
 }

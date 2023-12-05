@@ -79,6 +79,11 @@ namespace PhoneBook.Test.UnitTests
             List<CompanyDataModel> companiesList = MockSetupManager.GetListOfCompanies();
             IQueryable<CompanyDataModel> company = companiesList.AsQueryable();
 
+            List<PersonDataModel> personList = MockSetupManager.GetListOfPersons();
+            IQueryable<PersonDataModel> persons = personList.AsQueryable();
+
+            DbSet<PersonDataModel> mockedPersons = NSubstituteUtil.CreateMockSet(persons);
+
             DbSet<CompanyDataModel> mockedCompanies = NSubstituteUtil.CreateMockSet(company);
             mockedCompanies.Add(Arg.Do<CompanyDataModel>(x =>
             {
@@ -88,6 +93,7 @@ namespace PhoneBook.Test.UnitTests
 
             _context = Substitute.For<IPhoneBookDbContext>();
             _context.Company.Returns(mockedCompanies);
+            _context.Person.Returns(mockedPersons);
 
             _companyRepository = new CompanyRepository(_context);
 

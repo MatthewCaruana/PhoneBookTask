@@ -20,21 +20,21 @@ namespace PhoneBook.Application.Services
         }
 
         #region Interface Implementations
-        public List<PersonDTO> GetAllPersons()
+        public List<PersonCompanyDTO> GetAllPersons()
         {
-            List<PersonDTO> personDTOs = new List<PersonDTO>();
+            List<PersonCompanyDTO> personDTOs = new List<PersonCompanyDTO>();
 
-            List<PersonDataModel> personsDMs = _repository.GetAllPersons().ToList();
+            List<PersonDataModel> personsDMs = _repository.GetAllPersons();
 
             foreach (PersonDataModel person in personsDMs)
             {
-                personDTOs.Add(ConvertToDTO(person));
+                personDTOs.Add(ConvertToPersonCompanyDTO(person));
             }
 
             return personDTOs;
         }
 
-        public void AddPerson(PersonDTO person)
+        public void AddPerson(NewPersonDTO person)
         { 
             _repository.AddPerson(ConvertToDataModel(person));
             _repository.SaveChanges();
@@ -66,22 +66,22 @@ namespace PhoneBook.Application.Services
             }
         }
 
-        public PersonDTO GetWildcard()
+        public PersonCompanyDTO GetWildcard()
         {
             PersonDataModel person = _repository.GetWildcard();
 
-            return ConvertToDTO(person);
+            return ConvertToPersonCompanyDTO(person);
         }
 
-        public List<PersonDTO> Search(string keyword)
+        public List<PersonCompanyDTO> Search(string keyword)
         {
-            List<PersonDTO> personDTOs = new List<PersonDTO>();
+            List<PersonCompanyDTO> personDTOs = new List<PersonCompanyDTO>();
 
             List<PersonDataModel> persons = _repository.Search(keyword);
 
             foreach (PersonDataModel person in persons)
             {
-                personDTOs.Add(ConvertToDTO(person));
+                personDTOs.Add(ConvertToPersonCompanyDTO(person));
             }
 
             return personDTOs;
@@ -90,31 +90,40 @@ namespace PhoneBook.Application.Services
 
 
         #region Private Functions
-        private PersonDTO ConvertToDTO(PersonDataModel model)
+        private PersonCompanyDTO ConvertToPersonCompanyDTO(PersonDataModel model)
         {
-            PersonDTO result = new PersonDTO();
+            PersonCompanyDTO result = new PersonCompanyDTO();
 
             result.FullName = model.FullName;
             result.PhoneNumber = model.PhoneNumber;
             result.FullAddress = model.FullAddress;
+            result.Company = ConvertToCompanyDTO(model.Company);
 
             return result;
         }
 
-        private PersonDataModel ConvertToDataModel(PersonDTO dto)
+        private PersonDataModel ConvertToDataModel(NewPersonDTO dto)
         {
             PersonDataModel result = new PersonDataModel();
 
             result.FullName = dto.FullName;
             result.PhoneNumber = dto.PhoneNumber;
             result.FullAddress = dto.FullAddress;
+            result.CompanyRef = dto.CompanyRef;
 
             return result;
         }
 
-       
+        private CompanyDTO ConvertToCompanyDTO(CompanyDataModel model)
+        {
+            CompanyDTO result = new CompanyDTO();
 
+            result.CompanyName = model.CompanyName;
+            result.RegistrationDate = model.RegistrationDate;
+            result.LinkedPersons = model.Persons.Count();
 
+            return result;
+        }
         #endregion
 
 

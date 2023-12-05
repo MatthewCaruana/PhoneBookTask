@@ -9,15 +9,15 @@ namespace PhoneBook.Application.Services.Interfaces
 {
     public interface IPersonServices
     {
-        List<PersonDTO> GetAllPersons();
+        List<PersonCompanyDTO> GetAllPersons();
 
-        void AddPerson(PersonDTO person);
+        void AddPerson(NewPersonDTO person);
 
         void EditPerson(EditPersonDTO editedPerson);
 
         void DeletePerson(int personID);
 
-        PersonDTO GetWildcard();
-        List<PersonDTO> Search(string keyword);
+        PersonCompanyDTO GetWildcard();
+        List<PersonCompanyDTO> Search(string keyword);
     }
 }

@@ -1,4 +1,5 @@
-﻿using PhoneBook.Persistence.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using PhoneBook.Persistence.Context;
 using PhoneBook.Persistence.Context.Interface;
 using PhoneBook.Persistence.Models;
 using PhoneBook.Persistence.Repositories.Interfaces;
@@ -21,7 +22,7 @@ namespace PhoneBook.Persistence.Repositories
 
         public List<PersonDataModel> GetAllPersons()
         {
-            return _context.Person.ToList();
+            return _context.Person.Include(x=>x.Company).ToList();
         }
 
         public void AddPerson(PersonDataModel person)
@@ -36,7 +37,7 @@ namespace PhoneBook.Persistence.Repositories
 
         public PersonDataModel FindById(int id)
         {
-            return _context.Person.Where(x => x.Id == id).FirstOrDefault();
+            return _context.Person.Include(x => x.Company).Where(x => x.Id == id).FirstOrDefault();
         }
 
         public void UpdatePerson(PersonDataModel person)
@@ -51,12 +52,12 @@ namespace PhoneBook.Persistence.Repositories
 
         public PersonDataModel GetWildcard()
         {
-            return _context.Person.OrderBy(_ => Guid.NewGuid()).Take(1).Single();
+            return _context.Person.Include(x=>x.Company).OrderBy(_ => Guid.NewGuid()).Take(1).Single();
         }
 
         public List<PersonDataModel> Search(string keyword)
         {
-            return _context.Person.Where(x=>x.FullName.Contains(keyword) || x.FullAddress.Contains(keyword) || x.PhoneNumber.Contains(keyword)).Distinct().ToList();
+            return _context.Person.Include(x=>x.Company).Where(x=>x.FullName.Contains(keyword) || x.FullAddress.Contains(keyword) || x.PhoneNumber.Contains(keyword) || x.Company.CompanyName.Contains(keyword)).Distinct().ToList();
         }
     }
 }

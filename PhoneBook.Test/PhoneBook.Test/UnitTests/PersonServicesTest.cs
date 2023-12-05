@@ -46,7 +46,7 @@ namespace PhoneBook.Test.UnitTests
 
         [TestMethod]
         [DynamicData(nameof(GetTestAddEditRemovePersonData), DynamicDataSourceType.Method)]
-        public void Person_Add_Edit_Remove(PersonDTO person, EditPersonDTO editedPerson, int removedId)
+        public void Person_Add_Edit_Remove(NewPersonDTO person, EditPersonDTO editedPerson, int removedId)
         {
             //arrange
             SetupDatasets();
@@ -86,7 +86,7 @@ namespace PhoneBook.Test.UnitTests
 
         [TestMethod]
         [DynamicData(nameof(GetTestInputPersonData), DynamicDataSourceType.Method)]
-        public void Person_Add(PersonDTO person)
+        public void Person_Add(NewPersonDTO person)
         {
             //arrange
             SetupDatasets();
@@ -95,7 +95,8 @@ namespace PhoneBook.Test.UnitTests
             {
                 FullName = person.FullName,
                 PhoneNumber = person.PhoneNumber,
-                FullAddress = person.FullAddress
+                FullAddress = person.FullAddress,
+                CompanyRef = person.CompanyRef
             };
 
             //act
@@ -139,11 +140,12 @@ namespace PhoneBook.Test.UnitTests
         {
             yield return new object[]
             {
-                new PersonDTO()
+                new NewPersonDTO()
                 {
                     FullName = "Andrew Stevens",
                     PhoneNumber = "+35679797979",
-                    FullAddress = "99, Grand Street, Valletta, Malta"
+                    FullAddress = "99, Grand Street, Valletta, Malta",
+                    CompanyRef = 1
                 }
             };
         }
@@ -152,11 +154,12 @@ namespace PhoneBook.Test.UnitTests
         {
             yield return new object[]
             {
-                new PersonDTO()
+                new NewPersonDTO()
                 {
                     FullName = "Andrew Stevens",
                     PhoneNumber = "+35679797979",
-                    FullAddress = "99, Grand Street, Valletta, Malta"
+                    FullAddress = "99, Grand Street, Valletta, Malta",
+                    CompanyRef = 1
                 },
                 new EditPersonDTO()
                 {
@@ -195,10 +198,21 @@ namespace PhoneBook.Test.UnitTests
 
         private void SetupDatasets()
         {
+            List<CompanyDataModel> companiesList = MockSetupManager.GetListOfCompanies();
+            IQueryable<CompanyDataModel> company = companiesList.AsQueryable();
+
             List<PersonDataModel> personList = MockSetupManager.GetListOfPersons();
             IQueryable<PersonDataModel> persons = personList.AsQueryable();
 
+            DbSet<CompanyDataModel> mockedCompanies = NSubstituteUtil.CreateMockSet(company);
+            mockedCompanies.Add(Arg.Do<CompanyDataModel>(x =>
+            {
+                companiesList.Add(x);
+                company = companiesList.AsQueryable();
+            }));
+
             DbSet<PersonDataModel> mockedPersons = NSubstituteUtil.CreateMockSet(persons);
+            
             mockedPersons.Add(Arg.Do<PersonDataModel>(x =>
             {
                 personList.Add(x);
@@ -226,6 +240,7 @@ namespace PhoneBook.Test.UnitTests
 
             _context = Substitute.For<IPhoneBookDbContext>();
             _context.Person.Returns(mockedPersons);
+            _context.Company.Returns(mockedCompanies);
 
             _personRepository = new PersonRepository(_context);
 

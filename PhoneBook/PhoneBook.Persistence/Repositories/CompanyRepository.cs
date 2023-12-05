@@ -1,4 +1,5 @@
-﻿using PhoneBook.Persistence.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using PhoneBook.Persistence.Context;
 using PhoneBook.Persistence.Context.Interface;
 using PhoneBook.Persistence.Models;
 using PhoneBook.Persistence.Repositories.Interfaces;
@@ -27,7 +28,7 @@ namespace PhoneBook.Persistence.Repositories
 
         public IEnumerable<CompanyDataModel> GetAllCompanies()
         {
-            return _context.Company.ToList();
+            return _context.Company.Include(x=>x.Persons).ToList();
         }
 
         public void SaveChanges()
