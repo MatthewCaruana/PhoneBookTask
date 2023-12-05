@@ -76,9 +76,10 @@ namespace PhoneBook.Test.UnitTests
 
 
             //assert
-            _context.Received(1).Person.Add(expectedAddModel);
-            _context.Received(1).Person.Update(expectedUpdateModel);
-            _context.Received(1).Person.Remove(expectedRemovalModel);
+            _context.Person.Received(1).Add(Arg.Any<PersonDataModel>());
+            _context.Person.Received(1).Update(Arg.Any<PersonDataModel>());
+            _context.Person.Received(1).Remove(Arg.Any<PersonDataModel>());
+
             _context.Received(3).SaveChanges();
 
         }

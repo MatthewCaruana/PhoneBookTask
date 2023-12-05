@@ -62,6 +62,7 @@ namespace PhoneBook.Application.Services
             if(person != null)
             {
                 _repository.RemovePerson(person);
+                _repository.SaveChanges();
             }
         }
 
