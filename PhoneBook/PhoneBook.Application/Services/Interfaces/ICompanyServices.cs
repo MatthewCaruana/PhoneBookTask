@@ -10,5 +10,6 @@ namespace PhoneBook.Application.Services.Interfaces
     public interface ICompanyServices
     {
         List<CompanyDTO> GetAllCompanies(); 
+        void AddCompany(CompanyDTO company);
     }
 }

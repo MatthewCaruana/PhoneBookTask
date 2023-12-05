@@ -41,6 +41,26 @@ namespace PhoneBook.Test.UnitTests
             Assert.AreEqual(expectedCompanies.Count, result.Count);
         }
 
+        [TestMethod]
+        public void Company_Add(CompanyDTO company)
+        {
+            //arrange
+            SetupDatasets();
+
+            CompanyDataModel expectedDataModel = new CompanyDataModel()
+            {
+                CompanyName = company.CompanyName,
+                RegistrationDate = company.RegistrationDate,
+            };
+
+            //act
+            _service.AddCompany(company);
+
+            //assert
+            _context.Company.Received(1).Add(expectedDataModel);
+            _context.Received(1).SaveChanges();
+        }
+
         private void SetupDatasets()
         {
             List<CompanyDataModel> companiesList = MockSetupManager.GetListOfCompanies();

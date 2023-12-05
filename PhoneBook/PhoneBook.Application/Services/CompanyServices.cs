@@ -21,6 +21,12 @@ namespace PhoneBook.Application.Services
             _repository = repository;
         }
 
+        public void AddCompany(CompanyDTO company)
+        {
+            _repository.AddCompany(ConvertToDataModel(company));
+            _repository.SaveChanges();
+        }
+
         public List<CompanyDTO> GetAllCompanies()
         {
             List<CompanyDTO> companyDTOs = new List<CompanyDTO>();
@@ -50,6 +56,14 @@ namespace PhoneBook.Application.Services
                 result.LinkedPersons = 0;
             }
 
+            return result;
+        }
+
+        private CompanyDataModel ConvertToDataModel(CompanyDTO model)
+        {
+            CompanyDataModel result = new CompanyDataModel();
+            result.CompanyName = model.CompanyName;
+            result.RegistrationDate = model.RegistrationDate;
             return result;
         }
     }

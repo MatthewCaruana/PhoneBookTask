@@ -20,9 +20,19 @@ namespace PhoneBook.Persistence.Repositories
             _context = context;
         }
 
+        public void AddCompany(CompanyDataModel company)
+        {
+            _context.Company.Add(company);
+        }
+
         public IEnumerable<CompanyDataModel> GetAllCompanies()
         {
             return _context.Company.ToList();
+        }
+
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
         }
     }
 }

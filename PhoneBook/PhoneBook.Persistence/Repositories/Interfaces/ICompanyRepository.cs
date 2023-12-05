@@ -10,5 +10,7 @@ namespace PhoneBook.Persistence.Repositories.Interfaces
     public interface ICompanyRepository
     {
         IEnumerable<CompanyDataModel> GetAllCompanies();
+        void AddCompany(CompanyDataModel company);
+        void SaveChanges();
     }
 }
