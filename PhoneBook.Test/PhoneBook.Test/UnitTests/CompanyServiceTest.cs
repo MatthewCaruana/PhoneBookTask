@@ -22,6 +22,7 @@ namespace PhoneBook.Test.UnitTests
     public class CompanyServiceTest
     {
         private ICompanyRepository _companyRepository;
+        private IPersonRepository _personRepository;
         private ICompanyServices _service;
         private IPhoneBookDbContext _context;
 
@@ -96,8 +97,9 @@ namespace PhoneBook.Test.UnitTests
             _context.Person.Returns(mockedPersons);
 
             _companyRepository = new CompanyRepository(_context);
+            _personRepository = new PersonRepository(_context);
 
-            _service = new CompanyServices(_companyRepository);
+            _service = new CompanyServices(_companyRepository, _personRepository);
         }
 
     }

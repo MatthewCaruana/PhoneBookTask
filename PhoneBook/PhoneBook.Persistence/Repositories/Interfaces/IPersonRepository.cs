@@ -17,5 +17,6 @@ namespace PhoneBook.Persistence.Repositories.Interfaces
         void RemovePerson(PersonDataModel person);
         PersonDataModel GetWildcard();
         List<PersonDataModel> Search(string keyword);
+        int GetLinkedPersons(int companyID);
     }
 }

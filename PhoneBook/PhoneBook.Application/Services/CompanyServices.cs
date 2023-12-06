@@ -15,10 +15,12 @@ namespace PhoneBook.Application.Services
     public class CompanyServices : ICompanyServices
     {
         private ICompanyRepository _repository;
+        private IPersonRepository _personRepository;
 
-        public CompanyServices(ICompanyRepository repository) 
+        public CompanyServices(ICompanyRepository repository, IPersonRepository personRepository) 
         { 
             _repository = repository;
+            _personRepository = personRepository;
         }
 
         public void AddCompany(CompanyDTO company)
@@ -35,7 +37,9 @@ namespace PhoneBook.Application.Services
 
             foreach(CompanyDataModel company in companiesDMs)
             {
-                companyDTOs.Add(ConvertToDTO(company));
+                CompanyDTO companyDTO = ConvertToDTO(company);
+                companyDTO.LinkedPersons = _personRepository.GetLinkedPersons(company.ID);
+                companyDTOs.Add(companyDTO);
             }
 
             return companyDTOs;
